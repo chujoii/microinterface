@@ -32,7 +32,7 @@ int menu_length = 3;
 int menu_max_item_length = 6;
 int menu_max_value_length = 10;
 int menu_pointer = 0;
-int menu_value[]={1, 2, 3};
+word menu_value[]={1, 2, 3};
 
 char buf[9]; // menu_max_value_length
 
@@ -42,6 +42,7 @@ int menu_y = 0;
 int max_menu_x = 16 - 1; // display width
 int max_menu_y = menu_length - 1; //
 
+boolean changes = true;
 
 int strLength(char *buffer)
 {
@@ -65,6 +66,8 @@ void display_menu(int lcd_x, int lcd_y, int item)
 	int offset = strLength(buf);
 	lcd.setCursor(lcd_x + menu_max_item_length+menu_max_value_length - offset, lcd_y);
 	lcd.print(buf);
+	
+	changes = false;
 }
 
 int sign(int i)
@@ -125,6 +128,7 @@ void eintrptwrapper()
 			}
 		}
 		enc.set_angle(0);
+		changes = true;
 	}
 }
 
@@ -148,27 +152,29 @@ void setup ()
 
 void loop ()
 {
-	lcd.clear();
-        // set the cursor to column 0, line 1
-        // (note: line 1 is the second row, since counting begins with 0):
-	//lcd.setCursor(0, 1);
-	
-	//lcd.print(enc.get_angle()>>2);
-	
-	lcd.noCursor();
-
-
-
-	display_menu(0, 1, menu_pointer);
-
-
-
-	lcd.setCursor(menu_x, 1);
-	// Turn off the cursor:
-	
-	//delay(200);
-	// Turn on the cursor:
-	lcd.cursor();
+	if (changes) {
+		lcd.clear();
+		// set the cursor to column 0, line 1
+		// (note: line 1 is the second row, since counting begins with 0):
+		//lcd.setCursor(0, 1);
+		
+		//lcd.print(enc.get_angle()>>2);
+		
+		lcd.noCursor();
+		
+		
+		
+		display_menu(0, 1, menu_pointer);
+		
+		
+		
+		lcd.setCursor(menu_x, 1);
+		// Turn off the cursor:
+		
+		//delay(200);
+		// Turn on the cursor:
+		lcd.cursor();
+	}
 	delay(100);
 	
 	
