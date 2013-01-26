@@ -43,21 +43,29 @@ int max_menu_x = 16 - 1; // display width
 int max_menu_y = menu_length - 1; //
 
 
+int strLength(char *buffer)
+{
+	int i=0;
+	while(buffer[i]){
+		i++;
+	}
+	return i;
+}
 
 
 void display_menu(int lcd_x, int lcd_y, int item)
 {
 	lcd.setCursor(lcd_x, lcd_y);
 	lcd.print(menu_items[item]);
-	lcd.setCursor(lcd_x + menu_max_item_length, lcd_y);
+
 
 
 	//itoa(enc.get_angle(), buf, 10);
-	itoa(menu_value[item], buf, 10);//menu_value[item]);
-
+	itoa(menu_value[item], buf, 10);//menu_value[item]); // fixme need use sprintf ?
+	
+	int offset = strLength(buf);
+	lcd.setCursor(lcd_x + menu_max_item_length+menu_max_value_length - offset, lcd_y);
 	lcd.print(buf);
-
-
 }
 
 int sign(int i)
@@ -83,10 +91,14 @@ int loopconstrain(int x, int a, int b)
 }
 
 
+
+
+
 void eintrptwrapper()
 {
 	int a;
 	a = enc.encoderhalf();
+
 	if ((a>=4) || (a<=-4)) {
 		if (LOW == digitalRead(btn)) {
 			// x-axis move
