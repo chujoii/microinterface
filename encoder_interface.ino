@@ -60,8 +60,7 @@ void display_menu(int lcd_x, int lcd_y, int item)
 
 
 
-	//itoa(enc.get_angle(), buf, 10);
-	itoa(menu_value[item], buf, 10);//menu_value[item]); // fixme need use sprintf ?
+	itoa(menu_value[item], buf, 10); // fixme need use sprintf ?
 	
 	int offset = strLength(buf);
 	lcd.setCursor(lcd_x + menu_max_item_length+menu_max_value_length - offset, lcd_y);
@@ -77,6 +76,16 @@ int sign(int i)
 	}
 }
 
+
+word pow10(int a) // return 10^a
+{
+	if (a>5) {return 10000;} // 65535
+	int b = 1;
+	for (int c=0; c<a; c++){
+		b *= 10;
+	}
+	return b;
+}
 
 
 int loopconstrain(int x, int a, int b)
@@ -108,7 +117,7 @@ void eintrptwrapper()
 			// y-axis move
 			if (menu_x > menu_max_item_length - 1){
 				// change value
-				menu_value[menu_pointer] += sign(a);
+				menu_value[menu_pointer] += sign(a)*(pow10(max_menu_x-menu_x));
 			} else {
 				// change item
 				menu_pointer += sign(a);
