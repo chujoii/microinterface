@@ -44,7 +44,7 @@ Author: Roman V. Prikhodchenko <chujoii@gmail.com>
 encoder interface display
 
 * Description:
-  
+display (lcd), Encoder button, allow you to display and modify program settings  
 
 * Usage:
 use it
@@ -56,6 +56,14 @@ Project created at 2013-01(Jan)-26
 
 
 * Dependences:
+** hardware
+- microcontroller(Arduino)
+- display (in my case: OLED 16x2)
+- encoder
+- button
+** software
+- https://github.com/chujoii/encoder
+- http://www.xs4all.nl/~hmario/arduino/LiquidCrystal_I2C
   
 * Connection scheme
 
