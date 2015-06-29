@@ -25,7 +25,7 @@ const int btn_c_pin = 4;
 const int btn_d_pin = 5;
 
 const char* menu_items[]={"one", "two", "three"};
-word        menu_value[]={1,      2,     3};
+int         menu_value[]={1,      2,     3};
 
 char buf[9]; // menu_max_value_length
 
