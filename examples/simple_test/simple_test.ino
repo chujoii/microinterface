@@ -17,7 +17,9 @@ LiquidCrystal_I2C lcd(i2c_lcd_addr,16,2);  // set the LCD address to 0x20 for a 
 encoder enc(0);
 microinterface mi(0,     0,     3,           6,                    10,                    16);
 //                lcd_x, lcd_y, menu_length, menu_max_item_length, menu_max_value_length, display_width);
-//                            menu_items[3]; 6          +          10             =       16
+//                            menu_items[3]; 5 + 1 for delimiter + 10             =       16
+const byte delimiter_position = 6; // count from 0
+const char delimiter = '=';
 
 const int enc_a_pin = 2;
 const int enc_b_pin = 3;
@@ -107,8 +109,10 @@ void loop ()
 		lcd.clear();
 		// set the cursor to column 0, line 0
 		lcd.setCursor(0, 0);
-
 		lcd.print(menu_items[mi.get_item()]); // print item
+
+		lcd.setCursor(delimiter_position, 0);
+		lcd.print(delimiter); // print delimiter
 
 		lcd.setCursor(mi.get_position_for_value(menu_value[mi.get_item()]), 0); // print value
 		lcd.print(menu_value[mi.get_item()]);

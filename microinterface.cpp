@@ -94,7 +94,7 @@ int microinterface::input_data(char angle, byte btn_0, byte btn_1)
 			_menu_x = loopconstrain(_menu_x, 0, _display_width);
 		} else {
 			// y-axis move
-			if (_menu_x > _menu_max_item_length - 1){
+			if (_menu_x > _menu_max_item_length){
 				// change value
 				addition_value += sign(angle)*(pow10(_display_width - _menu_x));
 			} else {
