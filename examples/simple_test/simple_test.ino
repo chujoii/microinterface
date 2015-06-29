@@ -106,6 +106,7 @@ void loop ()
 	if (0 == changes) { // return        0 - good: encoder rotated        1 - default, no changes (error)        2 - very strange error
 		changes = 1;
 
+		lcd.noCursor();
 		lcd.clear();
 		// set the cursor to column 0, line 0
 		lcd.setCursor(0, 0);
