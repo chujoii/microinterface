@@ -6,7 +6,7 @@
 
 #include <microinterface.h>
 
-microinterface::microinterface(int lcd_x, int lcd_y, int menu_length, int menu_max_item_length, int menu_max_value_length, int display_width)
+microinterface::microinterface(int lcd_x, int lcd_y, int menu_length, int menu_max_item_length, int menu_max_value_length, int display_width, int detent)
 {
 	_menu_pointer = 0; // _menu_y
 	_menu_x = 0;
@@ -16,6 +16,7 @@ microinterface::microinterface(int lcd_x, int lcd_y, int menu_length, int menu_m
 	_menu_max_item_length = menu_max_item_length;
 	_menu_max_value_length = menu_max_value_length;
 	_display_width = display_width - 1;
+	_detent = detent;
 }
 
 
@@ -87,7 +88,7 @@ int microinterface::loopconstrain(int x, int a, int b)
 int microinterface::input_data(char angle, byte btn_0, byte btn_1)
 {
 	int addition_value = 0;
-	if ((angle>=1) || (angle<=-1)) {
+	if ((angle>=_detent) || (angle<=-_detent)) {
 		if (0 == btn_0) {
 		        // x-axis move
 			_menu_x +=  sign(angle);// % _display_width;

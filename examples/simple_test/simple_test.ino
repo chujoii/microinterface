@@ -30,9 +30,10 @@ LiquidCrystal_I2C lcd(i2c_lcd_addr,16,2);  // set the LCD address to 0x20 for a 
 
 
 encoder enc(0);
-microinterface mi(0,     0,     3,           6,                    10,                    16);
-//                lcd_x, lcd_y, menu_length, menu_max_item_length, menu_max_value_length, display_width);
-//                            menu_items[3]; 5 + 1 for delimiter + 10             =       16
+microinterface mi(0,     0,     3,           6,                    10,                    16,           1);
+//                lcd_x, lcd_y, menu_length, menu_max_item_length, menu_max_value_length, display_width, detent);
+//                            menu_items[3]; 5 + 1 for delimiter + 10             =       16             1or2or4 (see Readme)
+
 const byte delimiter_position = 6; // count from 0
 const char delimiter = '=';
 
@@ -76,6 +77,22 @@ void eintrptwrapper()
 	int new_val = mi.input_data(angle, c, d);
 	menu_value[mi.get_item()] += new_val;
 	enc.set_angle(0);
+}
+
+void cursor_blink()
+{
+	// see string "lcd.blink()" in function "setup" // blink cursor with symbol :(
+ 	if (timer < millis()){ // blink without delay. fixme: nee use hw timer
+		timer = millis() + dt;
+		if (cursor_status){
+			// Turn off the cursor:
+			lcd.noCursor();
+		} else {
+			// Turn on the cursor:
+			lcd.cursor();
+		}
+		cursor_status = !cursor_status;
+	}
 }
 
 
@@ -141,19 +158,7 @@ void loop ()
 	}
 
 
-	
-	// see string "lcd.blink()" in function "setup" // blink cursor with symbol :(
- 	if (timer < millis()){ // blink without delay. fixme: nee use hw timer
-		timer = millis() + dt;
-		if (cursor_status){
-			// Turn off the cursor:
-			lcd.noCursor();
-		} else {
-			// Turn on the cursor:
-			lcd.cursor();
-		}
-		cursor_status = !cursor_status;
-	}
+	cursor_blink();
 }
 
 

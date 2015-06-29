@@ -74,3 +74,7 @@ then comment string with "PushUp" in file examples/simple_test/simple_test.ino
 |                    5 | button3      | not used |
 |                  GND | button3_com  | not used |
 
+* Config
+A rotary encoder includes a detent (a spring with bumps), that makes a
+clicking sound as the shaft is turned. Detent corresponds to the 1, 2
+or 4 encoder`s events.
