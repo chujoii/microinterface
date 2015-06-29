@@ -57,3 +57,20 @@ Project created at 2013-01(Jan)-26
 
 * Dependences:
   
+* Connection scheme
+
+If you use optical (or another type of encoder/button with hardware PushUp),
+then comment string with "PushUp" in file examples/simple_test/simple_test.ino
+
+| pin number (Arduino) | connector    | comment  |
+|----------------------+--------------+----------|
+|                    2 | encoder1_a   |          |
+|                  GND | encoder1_com |          |
+|                    3 | encoder1_b   |          |
+|                      |              |          |
+|                    4 | button2      |          |
+|                  GND | button2_com  |          |
+|                      |              |          |
+|                    5 | button3      | not used |
+|                  GND | button3_com  | not used |
+

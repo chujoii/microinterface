@@ -2,6 +2,21 @@
   created 2015-05-28
   by Roman V. Prikhodchenko chujoii@gmail.com
   license GPL
+
+
+
+  Connection scheme:
+  
+  pin 2 = encoder1_a
+  GND   = encoder1_mass
+  pin 3 = encoder1_b
+  // if you use optical (or another type of encoder comment string with "PushUp")
+
+  pin 4 = button2_c
+  GND   = button2_c_mass
+
+  // pin 5 = button3_d        // not used
+  // GND   = button3_d_mass   // not used
 */
 
 #include <microinterface.h>
@@ -22,7 +37,9 @@ const byte delimiter_position = 6; // count from 0
 const char delimiter = '=';
 
 const int enc_a_pin = 2;
+const int enc_a_pin_interrupt = 0;
 const int enc_b_pin = 3;
+const int enc_b_pin_interrupt = 1;
 const int btn_c_pin = 4;
 const int btn_d_pin = 5;
 
@@ -80,19 +97,18 @@ void setup ()
 
 
 	pinMode(enc_a_pin, INPUT);
-	digitalWrite(enc_a_pin, HIGH);
-
+	digitalWrite(enc_a_pin, HIGH); // comment if you not need PushUp for encoder1
 	pinMode(enc_b_pin, INPUT);
-	digitalWrite(enc_b_pin, HIGH);
+	digitalWrite(enc_b_pin, HIGH); // comment if you not need PushUp for encoder1
 
 	pinMode(btn_c_pin, INPUT);
-	digitalWrite(btn_c_pin, HIGH);
+	digitalWrite(btn_c_pin, HIGH); // comment if you not need PushUp for button2
 
-	pinMode(btn_d_pin, INPUT);
-	digitalWrite(btn_d_pin, HIGH);
+	//pinMode(btn_d_pin, INPUT);
+	//digitalWrite(btn_d_pin, HIGH); // comment if you not need PushUp for button3
 
-	attachInterrupt(0, eintrptwrapper, CHANGE);
-	attachInterrupt(1, eintrptwrapper, CHANGE);
+	attachInterrupt(enc_a_pin_interrupt, eintrptwrapper, CHANGE);
+	attachInterrupt(enc_b_pin_interrupt, eintrptwrapper, CHANGE);
 
 
 
